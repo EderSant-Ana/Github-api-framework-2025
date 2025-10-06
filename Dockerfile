@@ -11,5 +11,5 @@ COPY . .
 # (essa linha baixa dependências antes de copiar todo o código)
 RUN mvn -B dependency:go-offline
 
-# Define o comando de entrada (executa os testes Maven)
+# Define o comando de entrada (executa os testes Maven original)
 ENTRYPOINT ["mvn", "clean", "test"]
