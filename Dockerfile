@@ -7,15 +7,7 @@ ENV PATH=$MAVEN_HOME/bin:$PATH
 
 RUN apt-get update && 
 
-apt-get install -y --no-install-recommends 
-
-wget 
-
-unzip 
-
-build-essential 
-
-git && 
+apt-get install -y --no-install-recommends wget unzip build-essential git && 
 
 wget https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.zip -O /tmp/maven.zip && 
 
