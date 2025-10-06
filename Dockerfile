@@ -9,11 +9,19 @@ ENV WORK_DIR=/app \
 
 # Instala dependências, Maven e limpa cache
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends wget unzip build-essential git && \
+    apt-get install -y --no-install-recommends \
+        wget \
+        unzip \
+        build-essential \
+        git \
+        ca-certificates \
+        curl && \
+    update-ca-certificates && \
     wget https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip -O /tmp/maven.zip && \
     unzip /tmp/maven.zip -d /usr/share && \
     mv /usr/share/apache-maven-${MAVEN_VERSION} ${MAVEN_HOME} && \
     rm /tmp/maven.zip && \
+    apt-get purge -y --auto-remove curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -23,5 +31,5 @@ WORKDIR ${WORK_DIR}
 # Copia o código fonte para dentro do container
 COPY . .
 
-# Define o comando de entrada
+# Define o comando padrão
 ENTRYPOINT ["mvn", "clean", "test"]
