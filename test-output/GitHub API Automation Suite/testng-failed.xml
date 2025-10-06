@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [GitHub API Automation Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Repository CRUD Flow Tests(failed)">
+    <classes>
+      <class name="com.autotestapi.github.github_api_framework.tests.RepositoryTests">
+        <methods>
+          <include name="testPostCreateRepository"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- com.autotestapi.github.github_api_framework.tests.RepositoryTests -->
+    </classes>
+  </test> <!-- Repository CRUD Flow Tests(failed) -->
+</suite> <!-- Failed suite [GitHub API Automation Suite] -->

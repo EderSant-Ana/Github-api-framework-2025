@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd"> 
+
+<suite name="GitHub API Automation Suite" verbose="1" >
+
+
+    <test name="Repository CRUD Flow Tests" >
+        <classes>
+            <class name="com.autotestapi.github.github_api_framework.tests.RepositoryTests" />
+        </classes>
+    </test>
+</suite>

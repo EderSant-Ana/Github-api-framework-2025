@@ -1,0 +1,18 @@
+# Arquivos gerados pelo Java/Maven
+/target/
+
+# Arquivos de log e cache
+*.log
+*.jar
+*.war
+*.ear
+
+# Configurações e binários da IDE (Eclipse)
+.classpath
+.project
+.settings/
+/bin/
+
+# Variáveis de Ambiente e Segredos (CRUCIAL)
+# Isso impede que seu token do GitHub seja enviado ao repositório!
+.env
