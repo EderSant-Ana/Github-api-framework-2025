@@ -20,7 +20,7 @@ public class RepositoryTests {
 		repoClient = new RepositoryClient();
 	}
 
-	@Test(priority = 1)
+	//@Test(priority = 1)
 	public void testPostCreateRepository() {
 		createdRepoName = TestUtils.generateUniqueRepoName();
 
@@ -79,7 +79,8 @@ public class RepositoryTests {
 		response.then().body("description", org.hamcrest.Matchers.equalTo(newDescription));
 	}
 
-	@Test(priority = 4)
+	//@Test(priority = 4)
+    @Test(dependsOnMethods = {"testPostCreateRepository"})
 	public void testGetRepositoriesListContainsCreatedRepo() throws InterruptedException {
 		// 1. EXECUTAR: Chamar o endpoint para Listar todos os repositórios
 		Response response = repoClient.geAllRepositories();
