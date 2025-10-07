@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         // Variáveis do ambiente Jenkins
-        GITHUB_TOKEN = "${env.GITHUB_TOKEN}"
-        GITHUB_USERNAME = "${env.GITHUB_USERNAME}"
+	    // Mantemos só nome da variável pública; o valor será lido com withCredentials
+	    GITHUB_USERNAME = "${env.GITHUB_USERNAME}"
     }
 
     stages {
@@ -39,15 +39,21 @@ pipeline {
         }
 
         stage('Run API Tests') {
-            steps {
-                echo 'Executando testes automatizados de API...'
-                sh """
-                    docker run --name api-container \\
-                    -e GITHUB_TOKEN=${env.GITHUB_TOKEN} \\
-                    -e GITHUB_USERNAME=${env.GITHUB_USERNAME} \\
-                    api-tests-image
-                """
-            }
+	        steps {
+	            echo 'Executando testes automatizados de API (token passado de forma segura)...'
+	            withCredentials([string(credentialsId: 'GITHUB_TOKEN_CRED', variable: 'GITHUB_TOKEN')]) {
+	                // Para evitar problemas com caracteres no token, passamos via --env-file temporário.
+	                sh '''
+	                    set -e
+	                    echo "GITHUB_TOKEN=${GITHUB_TOKEN}" > .env_github
+	                    echo "GITHUB_USERNAME=${GITHUB_USERNAME}" >> .env_github
+	                    # imprime apenas comprimento do token para debug (não mostra o token)
+	                    echo "token length: $(wc -c < .env_github | awk '{print $1}')"
+	                    docker run --name api-container --env-file .env_github api-tests-image
+	                    rm -f .env_github
+	                '''
+	            }
+	        }
         }
 
         stage('Publish Reports') {
