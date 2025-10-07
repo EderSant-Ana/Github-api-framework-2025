@@ -21,8 +21,7 @@ public class RepositoryClient {
 	private final String token; //dotenv.get("GITHUB_TOKEN");
 	
 	
-	public RepositoryClient(String authenticatedUser, String token) {
-		super();
+	public RepositoryClient() {
 		this.authenticatedUser = System.getenv("GITHUB_USERNAME");
 		this.token = System.getenv("GITHUB_TOKEN");
 	}
