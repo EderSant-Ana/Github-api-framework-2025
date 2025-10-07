@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Variáveis do ambiente Jenkins
 	    // Mantemos só nome da variável pública; o valor será lido com withCredentials
-	    GITHUB_USERNAME = "${env.GITHUB_USERNAME}"
+	    GITHUB_USERNAME = "EderSant-Ana"
     }
 
     stages {
