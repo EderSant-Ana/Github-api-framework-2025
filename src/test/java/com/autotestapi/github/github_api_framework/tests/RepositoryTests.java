@@ -43,7 +43,9 @@ public class RepositoryTests {
 		Assert.assertTrue(responseModel.isPrivate(), "O repositório deve ser privado.");
 	}
 
-	@Test(priority = 2)
+	//@Test(priority = 2)
+    @Test(dependsOnMethods = {"testPostCreateRepository"})
+
 	public void testGetSingleRepository() {
 		// 1. PREPARAR: Usar o nome do repositório criado no teste anterior
 		Assert.assertNotNull(createdRepoName, "O repositório deve ter sido criado.");
@@ -58,7 +60,9 @@ public class RepositoryTests {
 		response.then().body("name", org.hamcrest.Matchers.equalTo(createdRepoName));
 	}
 
-	@Test(priority = 3)
+	//@Test(priority = 3)
+    @Test(dependsOnMethods = {"testGetSingleRepository"})
+
 	public void testPutUpdateRepository() {
 		// 1. PREPARAR: Novo payload para atualização
 		String newDescription = "Descrição atualizada via TestNG!";
@@ -87,7 +91,9 @@ public class RepositoryTests {
 		response.then().body("name", org.hamcrest.Matchers.hasItem(createdRepoName));
 	}
 
-	@Test(priority = 5)
+	//@Test(priority = 5)
+    @Test(dependsOnMethods = {"testPutUpdateRepository"})
+
 	public void testDeleteRepository() throws InterruptedException {
 		// **********************************************
 		// SOLUÇÃO: Pausa para permitir que a operação anterior finalize
