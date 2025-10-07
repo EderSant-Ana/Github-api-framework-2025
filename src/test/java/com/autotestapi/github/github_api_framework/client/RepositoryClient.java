@@ -46,7 +46,8 @@ public class RepositoryClient {
 				.pathParam("owner", authenticatedUser)
 				.pathParam("repo", repoName)
 				.when()
-				.get("/repos/{owner}/{repo}");
+				.get("/repos/{owner}/{repo}")
+				.prettyPeek();
 	}
 	
 	//3. GET (Read All)
@@ -54,8 +55,8 @@ public class RepositoryClient {
 		return getBaseSpec()
 				.queryParam("per_page", 100) // <-- ADICIONADA A PAGINAÇÃO
 				.when()
-				.get(REPO_PATH);
-				//.prettyPeek();
+				.get(REPO_PATH)
+				.prettyPeek();
 	}
 	
 	//4. PATCH (Update)
@@ -65,7 +66,8 @@ public class RepositoryClient {
 				.pathParam("repo", repoName)
 				.body(payload)
 				.when()
-				.patch("/repos/{owner}/{repo}");
+				.patch("/repos/{owner}/{repo}")
+				.prettyPeek();
 	}
 	
 	//5. DELETE
@@ -74,7 +76,8 @@ public class RepositoryClient {
 				.pathParam("owner", authenticatedUser)
 				.pathParam("repo", repoName)
 				.when()
-				.delete("/repos/{owner}/{repo}");
+				.delete("/repos/{owner}/{repo}")
+				.prettyPeek();
 	}
 	
 }
