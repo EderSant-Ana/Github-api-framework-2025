@@ -21,7 +21,7 @@ public class RepositoryTests {
 	}
 
 	@Test(priority = 1)
-	public void testPostCreateRepository() {
+	public void testPostCreateRepository() throws InterruptedException {
 		createdRepoName = TestUtils.generateUniqueRepoName();
 
 		// 1. PREPARAR: Criar o payload
@@ -41,6 +41,9 @@ public class RepositoryTests {
 		Assert.assertEquals(responseModel.getName(), createdRepoName,
 				"O nome do repositório deve corresponder ao enviado.");
 		Assert.assertTrue(responseModel.isPrivate(), "O repositório deve ser privado.");
+		
+		System.out.println("Repositório criado: " + createdRepoName + ". Aguardando 1 segundo para indexação do GitHub...");
+		Thread.sleep(1000); // Pausa de 1 segundo para o GitHub indexar o recurso.
 	}
 
 	@Test(priority = 2)
