@@ -41,7 +41,7 @@ pipeline {
         stage('Run API Tests') {
 	        steps {
 	            echo 'Executando testes automatizados de API (token passado de forma segura)...'
-	            withCredentials([string(credentialsId: 'GITHUB_TOKEN_CRED', variable: 'GITHUB_TOKEN')]) {
+	            withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')]) {
 	                // Para evitar problemas com caracteres no token, passamos via --env-file temporário.
 	                sh '''
 	                    set -e
