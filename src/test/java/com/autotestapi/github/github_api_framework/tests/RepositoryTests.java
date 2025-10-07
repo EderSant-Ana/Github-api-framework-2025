@@ -20,7 +20,7 @@ public class RepositoryTests {
 		repoClient = new RepositoryClient();
 	}
 
-	//@Test(priority = 1)
+	@Test(priority = 1)
 	public void testPostCreateRepository() {
 		createdRepoName = TestUtils.generateUniqueRepoName();
 
@@ -43,9 +43,7 @@ public class RepositoryTests {
 		Assert.assertTrue(responseModel.isPrivate(), "O repositório deve ser privado.");
 	}
 
-	//@Test(priority = 2)
-    @Test(dependsOnMethods = {"testPostCreateRepository"})
-
+	@Test(priority = 2)
 	public void testGetSingleRepository() {
 		// 1. PREPARAR: Usar o nome do repositório criado no teste anterior
 		Assert.assertNotNull(createdRepoName, "O repositório deve ter sido criado.");
@@ -60,9 +58,7 @@ public class RepositoryTests {
 		response.then().body("name", org.hamcrest.Matchers.equalTo(createdRepoName));
 	}
 
-	//@Test(priority = 3)
-    @Test(dependsOnMethods = {"testGetSingleRepository"})
-
+	@Test(priority = 3)
 	public void testPutUpdateRepository() {
 		// 1. PREPARAR: Novo payload para atualização
 		String newDescription = "Descrição atualizada via TestNG!";
@@ -79,8 +75,7 @@ public class RepositoryTests {
 		response.then().body("description", org.hamcrest.Matchers.equalTo(newDescription));
 	}
 
-	//@Test(priority = 4)
-    @Test(dependsOnMethods = {"testPostCreateRepository"})
+	@Test(priority = 4)
 	public void testGetRepositoriesListContainsCreatedRepo() throws InterruptedException {
 		// 1. EXECUTAR: Chamar o endpoint para Listar todos os repositórios
 		Response response = repoClient.geAllRepositories();
@@ -92,9 +87,7 @@ public class RepositoryTests {
 		response.then().body("name", org.hamcrest.Matchers.hasItem(createdRepoName));
 	}
 
-	//@Test(priority = 5)
-    @Test(dependsOnMethods = {"testPutUpdateRepository"})
-
+	@Test(priority = 5)
 	public void testDeleteRepository() throws InterruptedException {
 		// **********************************************
 		// SOLUÇÃO: Pausa para permitir que a operação anterior finalize
