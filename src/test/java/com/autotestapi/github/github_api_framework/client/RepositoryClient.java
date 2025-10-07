@@ -9,10 +9,10 @@ import io.restassured.specification.RequestSpecification;
 
 public class RepositoryClient {
 	
-	Dotenv dotenv = Dotenv.configure()
-		    .directory("./") // Força a busca na raiz do diretório de trabalho
-		    .filename(".env") // Especifica o nome
-		    .load();
+	//Dotenv dotenv = Dotenv.configure()
+	//	    .directory("./") // Força a busca na raiz do diretório de trabalho
+	//	    .filename(".env") // Especifica o nome
+	//	    .load();
 	
 
 	private final String Base_URL =  "https://api.github.com";
