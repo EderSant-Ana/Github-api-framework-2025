@@ -15,14 +15,18 @@ pipeline {
         }
 
         stage('Checkout Code') {
-            steps {
-                echo 'Fazendo checkout do repositório usando GITHUB_TOKEN...'
-                sh '''
-                    git config --global credential.helper store
-                    echo "https://${GITHUB_TOKEN}:@github.com" > ~/.git-credentials
-                    git clone -b main https://github.com/EderSant-Ana/Github-api-framework-2025.git .
-                '''
-            }
+		    steps {
+		        echo 'Fazendo checkout do repositório usando GITHUB_TOKEN...'
+		        checkout([$class: 'GitSCM',
+		            branches: [[name: 'main']],
+		            doGenerateSubmoduleConfigurations: false,
+		            extensions: [],
+		            userRemoteConfigs: [[
+		                url: 'https://github.com/EderSant-Ana/Github-api-framework-2025.git',
+		                credentialsId: 'github-token'  // opcional se usar credentialsId
+		            ]]
+		        ])
+		    }
         }
 
         stage('Build Docker Image') {
