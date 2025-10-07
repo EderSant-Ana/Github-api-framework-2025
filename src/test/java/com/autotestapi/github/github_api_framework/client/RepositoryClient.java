@@ -2,7 +2,6 @@ package com.autotestapi.github.github_api_framework.client;
 
 import com.autotestapi.github.github_api_framework.models.RepositoryModel;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -37,8 +36,8 @@ public class RepositoryClient {
 		return getBaseSpec()
 				.body(payload)
 				.when()
-				.post(REPO_PATH);
-				//.prettyPeek();
+				.post(REPO_PATH)
+				.prettyPeek();
 	}
 	
 	//2. Get (Read One)
