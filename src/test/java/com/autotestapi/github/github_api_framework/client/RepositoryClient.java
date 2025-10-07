@@ -12,16 +12,21 @@ public class RepositoryClient {
 	//	    .directory("./") // Força a busca na raiz do diretório de trabalho
 	//	    .filename(".env") // Especifica o nome
 	//	    .load();
-	
 
 	private final String Base_URL =  "https://api.github.com";
 	private final String REPO_PATH =  "/user/repos";
 	
     // O nome do usuário autenticado é necessário para alguns endpoints (e.g., PUT, DELETE)
-	private final String authenticatedUser = System.getenv("GITHUB_USERNAME"); //dotenv.get("GITHUB_USERNAME");
+	private final String authenticatedUser; //dotenv.get("GITHUB_USERNAME");
+	private final String token; //dotenv.get("GITHUB_TOKEN");
 	
-	private final String token = System.getenv("GITHUB_TOKEN"); //dotenv.get("GITHUB_TOKEN");
 	
+	public RepositoryClient(String authenticatedUser, String token) {
+		super();
+		this.authenticatedUser = System.getenv("GITHUB_USERNAME");
+		this.token = System.getenv("GITHUB_TOKEN");
+	}
+
 	private RequestSpecification getBaseSpec() {
 		return RestAssured.given()
 				.baseUri(Base_URL)
