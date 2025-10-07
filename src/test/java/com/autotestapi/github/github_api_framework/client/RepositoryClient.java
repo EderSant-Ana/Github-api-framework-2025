@@ -19,9 +19,9 @@ public class RepositoryClient {
 	private final String REPO_PATH =  "/user/repos";
 	
     // O nome do usuário autenticado é necessário para alguns endpoints (e.g., PUT, DELETE)
-	private final String authenticatedUser = dotenv.get("GITHUB_USERNAME");
+	private final String authenticatedUser = System.getenv("GITHUB_USERNAME"); //dotenv.get("GITHUB_USERNAME");
 	
-	private final String token = dotenv.get("GITHUB_TOKEN");
+	private final String token = System.getenv("GITHUB_TOKEN"); //dotenv.get("GITHUB_TOKEN");
 	
 	private RequestSpecification getBaseSpec() {
 		return RestAssured.given()
