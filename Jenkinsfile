@@ -1,38 +1,38 @@
 pipeline {
     agent any
 
+    environment {
+        GITHUB_TOKEN = "${env.GITHUB_TOKEN}"
+        GITHUB_USERNAME = "${env.GITHUB_USERNAME}"
+    }
+
     stages {
 
         stage('Cleanup Docker') {
             steps {
                 echo 'Limpando containers e imagens antigas...'
                 sh '''
-                    /usr/bin/docker rm -f api-container || true
-                    /usr/bin/docker container prune -f || true
-                    /usr/bin/docker image prune -f || true
+                    docker rm -f api-container || true
+                    docker container prune -f --force || true
+                    docker image prune -f || true
                 '''
             }
         }
 
         stage('Checkout Code') {
-		    steps {
-		        echo 'Fazendo checkout do repositório usando GITHUB_TOKEN...'
-		        checkout([$class: 'GitSCM',
-		            branches: [[name: 'main']],
-		            doGenerateSubmoduleConfigurations: false,
-		            extensions: [],
-		            userRemoteConfigs: [[
-		                url: 'https://github.com/EderSant-Ana/Github-api-framework-2025.git',
-		                credentialsId: 'github-token'  // opcional se usar credentialsId
-		            ]]
-		        ])
-		    }
+            steps {
+                echo 'Clonando repositório usando GITHUB_TOKEN...'
+                sh """
+                    rm -rf *  # Garante workspace limpo
+                    git clone -b main https://${GITHUB_TOKEN}@github.com/EderSant-Ana/Github-api-framework-2025.git .
+                """
+            }
         }
 
         stage('Build Docker Image') {
             steps {
                 echo 'Construindo imagem Docker...'
-                sh '/usr/bin/docker build -t api-tests-image .'
+                sh 'docker build -t api-tests-image .'
             }
         }
 
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 echo 'Executando testes automatizados de API...'
                 sh """
-                    /usr/bin/docker run --name api-container \\
+                    docker run --name api-container \\
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     -e GITHUB_USERNAME=${GITHUB_USERNAME} \\
                     api-tests-image
@@ -52,9 +52,9 @@ pipeline {
             steps {
                 echo 'Publicando relatórios JUnit...'
                 sh '''
-                    if /usr/bin/docker ps -a --format '{{.Names}}' | grep -q '^api-container$'; then
-                        /usr/bin/docker cp api-container:/app/target/surefire-reports ./
-                        /usr/bin/docker rm -f api-container
+                    if docker ps -a --format '{{.Names}}' | grep -q '^api-container$'; then
+                        docker cp api-container:/app/target/surefire-reports ./
+                        docker rm -f api-container
                     else
                         echo "Container api-container não encontrado — pulando cópia de relatórios."
                     fi
@@ -69,9 +69,9 @@ pipeline {
         always {
             echo 'Limpando ambiente pós-build...'
             sh '''
-                /usr/bin/docker rm -f api-container || true
-                /usr/bin/docker container prune -f || true
-                /usr/bin/docker image prune -f || true
+                docker rm -f api-container || true
+                docker container prune -f --force || true
+                docker image prune -f || true
             '''
         }
     }
