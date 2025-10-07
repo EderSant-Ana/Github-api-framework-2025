@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        // Variáveis do ambiente Jenkins
         GITHUB_TOKEN = "${env.GITHUB_TOKEN}"
         GITHUB_USERNAME = "${env.GITHUB_USERNAME}"
     }
@@ -21,10 +22,11 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                echo 'Clonando repositório usando GITHUB_TOKEN...'
+                echo 'Limpando workspace e clonando repositório...'
+                deleteDir()  // remove todos os arquivos do workspace
+
                 sh """
-                    rm -rf *  # Garante workspace limpo
-                    git clone -b main https://${GITHUB_TOKEN}@github.com/EderSant-Ana/Github-api-framework-2025.git .
+                    git clone -b main https://${env.GITHUB_TOKEN}@github.com/EderSant-Ana/Github-api-framework-2025.git .
                 """
             }
         }
@@ -41,8 +43,8 @@ pipeline {
                 echo 'Executando testes automatizados de API...'
                 sh """
                     docker run --name api-container \\
-                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
-                    -e GITHUB_USERNAME=${GITHUB_USERNAME} \\
+                    -e GITHUB_TOKEN=${env.GITHUB_TOKEN} \\
+                    -e GITHUB_USERNAME=${env.GITHUB_USERNAME} \\
                     api-tests-image
                 """
             }
