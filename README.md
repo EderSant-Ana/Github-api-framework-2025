@@ -52,6 +52,20 @@ Você deve sempre executar o goal `clean test` para garantir um build limpo e a 
 3.  No campo **Goals**, digite: `clean test`
 4.  Clique em **Run**.
 
+### Fluxo de Teste
+
+A classe `RepositoryTests` executa os seguintes passos em sequência, dependendo do `priority`:
+
+1. **`testPostCreateRepository`** (Criação): Cria um repositório novo e salva seu nome.
+
+2. **`testGetRepositoriesListContainsCreatedRepo`** (Leitura Lista): Verifica se o novo repositório aparece na lista de repositórios do usuário.
+
+3. **`testGetSingleRepository`** (Leitura Única): Busca o repositório pelo nome para confirmar a acessibilidade.
+
+4. **`testPutUpdateRepository`** (Atualização/PATCH): Altera a descrição do repositório.
+
+5. **`testDeleteRepository`** (Exclusão): Remove o repositório e verifica se ele não pode mais ser acessado.
+
 ### 2. Visualizar o Relatório (ReportNG)
 
 O relatório HTML é gerado automaticamente pelo Maven/ReportNG no diretório de saída dos testes.
