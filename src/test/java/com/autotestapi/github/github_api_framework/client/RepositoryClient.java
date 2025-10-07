@@ -59,8 +59,8 @@ public class RepositoryClient {
 		return getBaseSpec()
 				.queryParam("per_page", 100) // <-- ADICIONADA A PAGINAÇÃO
 				.when()
-				.get(REPO_PATH)
-				.prettyPeek();
+				.get(REPO_PATH);
+				//.prettyPeek();
 	}
 	
 	//4. PATCH (Update)

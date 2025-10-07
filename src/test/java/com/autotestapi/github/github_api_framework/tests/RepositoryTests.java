@@ -48,6 +48,13 @@ public class RepositoryTests {
 
 	@Test(priority = 2)
 	public void testGetSingleRepository() {
+		// **********************************************
+		// DIAGNÓSTICO FINAL: Imprime a variável de ambiente CRÍTICA
+		// **********************************************
+		String usernameForDiagnostic = System.getenv("GITHUB_USERNAME");
+		System.out.println("DEBUG: Username usado na requisição GET: " + usernameForDiagnostic);
+		System.out.println("DEBUG: Repositório buscado: " + createdRepoName);
+		
 		// 1. PREPARAR: Usar o nome do repositório criado no teste anterior
 		Assert.assertNotNull(createdRepoName, "O repositório deve ter sido criado.");
 
