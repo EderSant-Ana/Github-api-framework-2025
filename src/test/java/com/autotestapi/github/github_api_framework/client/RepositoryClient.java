@@ -40,8 +40,8 @@ public class RepositoryClient {
 		return getBaseSpec()
 				.body(payload)
 				.when()
-				.post(REPO_PATH)
-				.prettyPeek();
+				.post(REPO_PATH);
+				//.prettyPeek();
 	}
 	
 	//2. Get (Read One)
@@ -50,8 +50,8 @@ public class RepositoryClient {
 				.pathParam("owner", authenticatedUser)
 				.pathParam("repo", repoName)
 				.when()
-				.get("/repos/{owner}/{repo}")
-				.prettyPeek();
+				.get("/repos/{owner}/{repo}");
+				//.prettyPeek();
 	}
 	
 	//3. GET (Read All)
@@ -70,8 +70,8 @@ public class RepositoryClient {
 				.pathParam("repo", repoName)
 				.body(payload)
 				.when()
-				.patch("/repos/{owner}/{repo}")
-				.prettyPeek();
+				.patch("/repos/{owner}/{repo}");
+				//.prettyPeek();
 	}
 	
 	//5. DELETE
@@ -80,8 +80,8 @@ public class RepositoryClient {
 				.pathParam("owner", authenticatedUser)
 				.pathParam("repo", repoName)
 				.when()
-				.delete("/repos/{owner}/{repo}")
-				.prettyPeek();
+				.delete("/repos/{owner}/{repo}");
+				//.prettyPeek();
 	}
 	
 }
